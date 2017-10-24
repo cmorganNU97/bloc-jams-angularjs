@@ -170,7 +170,6 @@
             if (currentBuzzObject) {
                 currentBuzzObject.setVolume(volume);
                 SongPlayer.currentVolume = currentBuzzObject.getVolume();
-                console.log("set current volume " + volume);
             }
         };
 
