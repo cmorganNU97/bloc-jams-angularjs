@@ -58,6 +58,10 @@
         var playSong = function() {
             currentBuzzObject.play();
             SongPlayer.currentSong.playing = true;
+            // Extra Credit #2 - keeps song player muted when songs change
+            if (!SongPlayer.currentVolume) {
+                SongPlayer.setCurrentVolume(0);
+            }
         };
 
 /**
@@ -99,6 +103,13 @@
 */
 
         SongPlayer.currentVolume = 50;
+
+/**
+* @desc Stored current volume once volume is muted
+* @type
+*/
+
+        SongPlayer.savedCurrentVolume = null;
 
 /**
 * @desc Maximum volume of the song player
@@ -194,6 +205,25 @@
                 setSong(song);
                 playSong();
             };
+        };
+
+/**
+* @function volumeMute
+* @desc mutes volume when volume icon is clicked
+*/
+        // Extra Credit #2 - when volume icon clicked, volume is muted
+        SongPlayer.volumeMute = function() {
+            SongPlayer.savedCurrentVolume = SongPlayer.currentVolume;
+            SongPlayer.setCurrentVolume(0);
+        };
+
+/**
+* @function volumeRestore
+* @desc restores volume to volume before mute was selected
+*/
+        // Extra Credit #2 - when muted icon is clicked, volume is restored
+        SongPlayer.volumeRestore = function() {
+            SongPlayer.setCurrentVolume(SongPlayer.savedCurrentVolume);
         };
 
         return SongPlayer;
