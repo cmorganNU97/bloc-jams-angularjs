@@ -11,7 +11,7 @@
 * @desc Current album playing
 * @type {Object}
 */
-        var currentAlbum = Fixtures.getAlbum();
+        var currentAlbum = null;
 
 /**
 * @desc Buzz object aduio file
@@ -119,6 +119,13 @@
         SongPlayer.maxVolume = 100;
 
 /**
+* @desc current playlist
+* @type {Object}
+*/
+
+        SongPlayer.currrentPlaylist = {songs: []};
+
+/**
 * @function play method for SongPlayer
 * @desc Plays song when it's clicked if its a new song or the player is paused
 * @param {Object} song
@@ -163,7 +170,7 @@
                 var song = currentAlbum.songs[currentSongIndex];
                 setSong(song);
                 playSong();
-            };
+            }
         };
 
 /**
@@ -179,7 +186,7 @@
       };
 
 /**
-* @functionn setCurrentVolume
+* @function setCurrentVolume
 * @desc Sets the volume of the thumbwheel to the player's volume
 */
         SongPlayer.setCurrentVolume = function(volume) {
@@ -225,6 +232,48 @@
         SongPlayer.volumeRestore = function() {
             SongPlayer.setCurrentVolume(SongPlayer.savedCurrentVolume);
         };
+
+/**
+/* @function addToPlaylist
+/* @desc When playlist icon clicked, song added to current playlist
+*/
+
+        SongPlayer.addToPlaylist = function(band, song) {
+            song.artist = band;
+            SongPlayer.currrentPlaylist.songs.push(song);
+            console.log(SongPlayer.currrentPlaylist);
+        };
+
+/**
+/* @function
+/* @desc
+*/
+
+        SongPlayer.playlistRemove = function(index) {
+            SongPlayer.currrentPlaylist.songs.splice(index, 1);
+        };
+
+/**
+/* @function
+/* @desc
+*/
+
+        SongPlayer.setAlbum = function() {
+            currentAlbum = Fixtures.getAlbum();
+        };
+
+/**
+/* @function
+/* @desc
+*/
+
+        SongPlayer.setPlaylist = function() {
+            currentAlbum = SongPlayer.currrentPlaylist;
+        };
+
+
+
+//*********************************************************
 
         return SongPlayer;
     }

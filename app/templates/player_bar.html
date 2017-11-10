@@ -36,6 +36,10 @@
                   ng-show="!playerBar.songPlayer.currentVolume"
                   ng-click="playerBar.songPlayer.volumeRestore()"></span>
             <seek-bar value="{{ playerBar.songPlayer.currentVolume }}" max="{{ playerBar.songPlayer.maxVolume }}" on-change="playerBar.songPlayer.setCurrentVolume(value)"></seek-bar>
+            <div class="mute-inst">
+              <p ng-show="playerBar.songPlayer.currentVolume">Click volume icon to mute</p>
+              <p ng-show="!playerBar.songPlayer.currentVolume">Click mute icon for music</p>
+              </div>
         </div>
     </div>
 </section>

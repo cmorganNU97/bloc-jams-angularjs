@@ -1,0 +1,25 @@
+<main class="album-view container narrow">
+    <section class="clearfix">
+            <h2 class="playlist-album-view-title column half">Current Playlist</h2>
+            <table class="album-view-song-list">
+                <tr class="album-view-song-item" ng-repeat= "song in playlists.songPlayer.currrentPlaylist.songs track by $index" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
+                    <td class="song-item-number">
+                      <span ng-show="!song.playing && !hovered">{{ $index + 1 }}</span>
+                      <a class="album-song-button" ng-show="!song.playing && hovered" ng-click="playlists.songPlayer.setPlaylist(); playlists.songPlayer.play(song)"><span class="ion-play"></span></a>
+                      <a class="album-song-button" ng-show="song.playing" ng-click="playlists.songPlayer.pause(song)"><span class="ion-pause"></span></a>
+                    </td>
+                    <td class="playlist-song-item-title">
+                      <span>{{ song.title }}</span>
+                    </td>
+                    <td class="playlist-song-item-artist">
+                      <span>{{ song.artist }}</span>
+                    </td>
+                    <td class="playlist-song-item-remove">
+                      <span class="ion-android-cancel" ng-click="playlists.songPlayer.playlistRemove($index)"> Remove</span>
+                    </td>
+                </tr>
+            </table>
+    </section>
+</main>
+
+<ng-include src="'/templates/player_bar.html'"></ng-include>
