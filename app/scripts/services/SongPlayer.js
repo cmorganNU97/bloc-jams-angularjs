@@ -126,6 +126,13 @@
         SongPlayer.currrentPlaylist = {songs: []};
 
 /**
+* @desc
+* @type
+*/
+
+        SongPlayer.playlistList = [];
+
+/**
 * @function play method for SongPlayer
 * @desc Plays song when it's clicked if its a new song or the player is paused
 * @param {Object} song
@@ -241,7 +248,6 @@
         SongPlayer.addToPlaylist = function(band, song) {
             song.artist = band;
             SongPlayer.currrentPlaylist.songs.push(song);
-            console.log(SongPlayer.currrentPlaylist);
         };
 
 /**
@@ -271,7 +277,68 @@
             currentAlbum = SongPlayer.currrentPlaylist;
         };
 
+/**
+* @function
+* @desc
+*/
 
+        SongPlayer.clearPlaylist = function() {
+            SongPlayer.currrentPlaylist = {songs: []};
+            SongPlayer.setPlaylist();
+        };
+
+/**
+/* @function
+/* @desc
+*/
+
+        SongPlayer.playlistSave = function(playname) {
+
+            SongPlayer.currrentPlaylist.name = playname;
+            var index = null;
+
+            for (var i = 0; i < SongPlayer.playlistList.length; i++) {
+                if (SongPlayer.playlistList[i].name === playname) {
+                    var index = i;
+                }
+            }
+
+            if (index !== null) {
+                SongPlayer.playlistList[index] = SongPlayer.currrentPlaylist;
+            } else {
+                SongPlayer.playlistList.push(SongPlayer.currrentPlaylist);
+            }
+
+            SongPlayer.clearPlaylist();
+
+        };
+
+/**
+/* @function
+/* @desc
+*/
+
+        SongPlayer.playlistLoad = function(index) {
+            SongPlayer.currrentPlaylist = SongPlayer.playlistList[index];
+        };
+
+/**
+/* @function
+/* @desc
+*/
+
+        SongPlayer.saveLocalPlaylists = function() {
+            localStorage.playlist1 = JSON.stringify(SongPlayer.playlistList);
+        };
+
+/**
+/* @function
+/* @desc
+*/
+
+        SongPlayer.loadLocalPlaylists = function() {
+            SongPlayer.playlistList = JSON.parse(localStorage.playlist1);
+        };
 
 //*********************************************************
 

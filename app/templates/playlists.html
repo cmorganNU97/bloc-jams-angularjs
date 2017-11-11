@@ -19,6 +19,34 @@
                     </td>
                 </tr>
             </table>
+            <br>
+            <br>
+            <br>
+            <div>
+                Playlist Name: <input class="playlist-name" type="text" ng-model="playlists.songPlayer.playlistName">
+                <button class="playlist-name" ng-click="playlists.songPlayer.playlistSave(playlists.songPlayer.playlistName)">Save</button>
+                <button class="playlist-name" ng-click="playlists.songPlayer.clearPlaylist()">Clear Playlist</button>
+            </div>
+            <div>
+                <br>
+                <h3 class="playlist-album-view-title column half">Saved Playlists</h3>
+                <table class="album-view-song-list">
+                    <tr class="album-view-song-item" ng-repeat="n in playlists.songPlayer.playlistList track by $index">
+                      <td class="playlist-song-item-title">
+                          <span>{{ n.name }}</span>
+                      </td>
+                      <td class="playlist-load">
+                          <span class="ion-arrow-up-b" ng-click="playlists.songPlayer.playlistLoad($index)"> Load</span>
+                      </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+              <br>
+              <br>
+              <button class="playlist-name" ng-click="playlists.songPlayer.saveLocalPlaylists()">Save</button>
+              <button class="playlist-name" ng-click="playlists.songPlayer.loadLocalPlaylists()">Load</button>
+            </div>
     </section>
 </main>
 
