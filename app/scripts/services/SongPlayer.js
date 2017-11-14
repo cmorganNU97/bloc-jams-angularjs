@@ -11,7 +11,7 @@
 * @desc Current album playing
 * @type {Object}
 */
-        var currentAlbum = Fixtures.getAlbum();
+        var currentAlbum = null;
 
 /**
 * @desc Buzz object aduio file
@@ -38,6 +38,11 @@
             currentBuzzObject.bind('timeupdate', function() {
                 $rootScope.$apply(function() {
                     SongPlayer.currentTime = currentBuzzObject.getTime();
+                    // Extra Credit #1 - if current song ends, play the next song
+                    if (SongPlayer.currentTime >= SongPlayer.currentSong.duration) {
+                        SongPlayer.next();
+                    }
+
                 });
             });
 
@@ -53,6 +58,10 @@
         var playSong = function() {
             currentBuzzObject.play();
             SongPlayer.currentSong.playing = true;
+            // Extra Credit #2 - keeps song player muted when songs change
+            if (!SongPlayer.currentVolume) {
+                SongPlayer.setCurrentVolume(0);
+            }
         };
 
 /**
@@ -96,11 +105,32 @@
         SongPlayer.currentVolume = 50;
 
 /**
+* @desc Stored current volume once volume is muted
+* @type
+*/
+
+        SongPlayer.savedCurrentVolume = null;
+
+/**
 * @desc Maximum volume of the song player
 * @type {Number}
 */
 
         SongPlayer.maxVolume = 100;
+
+/**
+* @desc current playlist
+* @type {Object}
+*/
+
+        SongPlayer.currrentPlaylist = {songs: []};
+
+/**
+* @desc List of all of the playlists (can be created or saved/loaded)
+* @type {Array}
+*/
+
+        SongPlayer.playlistList = [];
 
 /**
 * @function play method for SongPlayer
@@ -147,7 +177,7 @@
                 var song = currentAlbum.songs[currentSongIndex];
                 setSong(song);
                 playSong();
-            };
+            }
         };
 
 /**
@@ -163,7 +193,7 @@
       };
 
 /**
-* @functionn setCurrentVolume
+* @function setCurrentVolume
 * @desc Sets the volume of the thumbwheel to the player's volume
 */
         SongPlayer.setCurrentVolume = function(volume) {
@@ -190,6 +220,128 @@
                 playSong();
             };
         };
+
+/**
+* @function volumeMute
+* @desc mutes volume when volume icon is clicked
+*/
+        // Extra Credit #2 - when volume icon clicked, volume is muted
+        SongPlayer.volumeMute = function() {
+            SongPlayer.savedCurrentVolume = SongPlayer.currentVolume;
+            SongPlayer.setCurrentVolume(0);
+        };
+
+/**
+* @function volumeRestore
+* @desc restores volume to volume before mute was selected
+*/
+        // Extra Credit #2 - when muted icon is clicked, volume is restored
+        SongPlayer.volumeRestore = function() {
+            SongPlayer.setCurrentVolume(SongPlayer.savedCurrentVolume);
+        };
+
+/**
+/* @function addToPlaylist
+/* @desc When playlist icon clicked, song added to current playlist
+*/
+
+        SongPlayer.addToPlaylist = function(band, song) {
+            song.artist = band;
+            SongPlayer.currrentPlaylist.songs.push(song);
+        };
+
+/**
+/* @function playlistRemove
+/* @desc Removes songs from the current playlist called from ng-click
+*/
+
+        SongPlayer.playlistRemove = function(index) {
+            SongPlayer.currrentPlaylist.songs.splice(index, 1);
+        };
+
+/**
+/* @function setAlbum
+/* @desc Sets the album to one from Fixtures.js when the Album view is displayed.
+/*       This is done when a song is played in the Album page (ng-click)
+*/
+
+        SongPlayer.setAlbum = function() {
+            currentAlbum = Fixtures.getAlbum();
+        };
+
+/**
+/* @function setPlaylist
+/* @desc Sets the current Playlist for the SongPlayer methods (ng-click)
+*/
+
+        SongPlayer.setPlaylist = function() {
+            currentAlbum = SongPlayer.currrentPlaylist;
+        };
+
+/**
+* @function clearPlaylist
+* @desc clears the playlist (ng-click from button)
+*/
+
+        SongPlayer.clearPlaylist = function() {
+            SongPlayer.currrentPlaylist = {songs: []};
+            SongPlayer.setPlaylist();
+        };
+
+/**
+/* @function playlistSave
+/* @desc Saves the playlist to the list of playlists - checks to see if there is
+/*       already a playlist by that name first
+*/
+
+        SongPlayer.playlistSave = function(playname) {
+
+            SongPlayer.currrentPlaylist.name = playname;
+            var index = null;
+
+            for (var i = 0; i < SongPlayer.playlistList.length; i++) {
+                if (SongPlayer.playlistList[i].name === playname) {
+                    var index = i;
+                }
+            }
+
+            if (index !== null) {
+                SongPlayer.playlistList[index] = SongPlayer.currrentPlaylist;
+            } else {
+                SongPlayer.playlistList.push(SongPlayer.currrentPlaylist);
+            }
+
+            SongPlayer.clearPlaylist();
+
+        };
+
+/**
+/* @function playlistLoad
+/* @desc Loads a playlist from the list of playlists in order to play it
+*/
+
+        SongPlayer.playlistLoad = function(index) {
+            SongPlayer.currrentPlaylist = SongPlayer.playlistList[index];
+        };
+
+/**
+/* @function saveLocalPlaylists
+/* @desc Saves list of playlists to localStoarge
+*/
+
+        SongPlayer.saveLocalPlaylists = function() {
+            localStorage.playlist1 = JSON.stringify(SongPlayer.playlistList);
+        };
+
+/**
+/* @function loadLocalPlaylists
+/* @desc Loads list of previously saved playlists from localStorage
+*/
+
+        SongPlayer.loadLocalPlaylists = function() {
+            SongPlayer.playlistList = JSON.parse(localStorage.playlist1);
+        };
+
 
         return SongPlayer;
     }

@@ -141,6 +141,7 @@
 /* === VOLUME === */
 
 .player-bar .volume {
+    position: relative;
     width: 25%;
     text-align: right;
 }
@@ -155,6 +156,12 @@
     display: inline-block;
     width: 5.75rem;
     vertical-align: middle;
+}
+
+.player-bar .volume .mute-inst {
+    font-size: 65%;
+    position: absolute;
+    padding-left: 3.85rem;
 }
 
 /* === MOBILE === */
@@ -172,13 +179,13 @@
         margin: 0 auto;
         padding: 0;
         width: 100%;
-        text-align: center;   
+        text-align: center;
     }
-    
+
     .player-bar .main-controls {
         min-height: 3.5rem;
     }
-    
+
     .player-bar .currently-playing {
         min-height: 2.5rem;
     }
@@ -187,11 +194,11 @@
         min-height: 3.5rem;
     }
 
-    .artist-name, 
+    .artist-name,
     .song-name {
         display: none;
     }
-    
+
     .artist-song-mobile {
         display: block;
     }

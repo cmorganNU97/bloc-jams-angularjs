@@ -13,13 +13,19 @@
         <tr class="album-view-song-item" ng-repeat="song in album.albumData.songs" ng-mouseover="hovered = true" ng-mouseleave="hovered = false">
             <td class="song-item-number">
                 <span ng-show="!song.playing && !hovered">{{ $index + 1 }}</span>
-                <a class="album-song-button" ng-show="!song.playing && hovered" ng-click="album.songPlayer.play(song)"><span class="ion-play"></span></a>
+                <a class="album-song-button" ng-show="!song.playing && hovered" ng-click="album.songPlayer.setAlbum(); album.songPlayer.play(song)"><span class="ion-play"></span></a>
                 <a class="album-song-button" ng-show="song.playing" ng-click="album.songPlayer.pause(song)"><span class="ion-pause"></span></a>
             </td>
             <td class="song-item-title">{{ song.title }}</td>
             <td class="song-item-duration">{{ song.duration | timecode }}</td>
+            <td><span class="ion-ios-list-outline" ng-click="album.songPlayer.addToPlaylist(album.albumData.artist, song)"></span></td>
         </tr>
     </table>
+    <br>
+    <br>
+    <div class="play-list">
+        Click <span class="ion-ios-list-outline"></span> To Add To Playlist
+    </div>
 </main>
 
 <ng-include src="'/templates/player_bar.html'"></ng-include>

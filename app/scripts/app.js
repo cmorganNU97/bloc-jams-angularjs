@@ -24,6 +24,12 @@
           url: '/collection',
           controller: 'CollectionCtrl as collection',
           templateUrl: '/templates/collection.html'
+        })
+
+        .state('playlists', {
+          url: '/playlists',
+          controller: 'PlaylistsCtrl as playlists',
+          templateUrl: '/templates/playlists.html'
         });
     }
 

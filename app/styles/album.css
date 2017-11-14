@@ -25,6 +25,12 @@ body.album {
     font-size: 2rem;
 }
 
+.playlist-album-view-title {
+  text-align: center;
+  font-weight: 300;
+  font-size: 2rem;
+}
+
 .album-view-details .album-view-artist {
     font-weight: 300;
     font-size: 1.5rem;
@@ -56,8 +62,31 @@ body.album {
     width: 85%;
 }
 
+.playlist-song-item-title {
+    width: 40%;
+}
+
+.playlist-song-item-artist {
+    width: 40%;
+}
+
+.playlist-song-item-remove {
+    width: 10%;
+}
+
+.playlist-load {
+    width: 2%;
+}
+
 .song-item-duration {
     width: 5%;
+}
+
+.play-list {
+  position: relative;
+  left: 770px;
+  font-weight: 300;
+  font-size: 0.75rem;
 }
 
 .album-song-button {
@@ -85,13 +114,19 @@ body.album {
     padding-left: 5px;
 }
 
+.playlist-name {
+
+    background-color: rgba(101,18,95,0.5);
+
+}
+
 @media (max-width: 40rem) and (min-width: 20rem) {
     .album-view-details {
         text-align: center;
     }
-    
+
     .album-view-title {
-        margin-top: 0;   
+        margin-top: 0;
     }
 }
 

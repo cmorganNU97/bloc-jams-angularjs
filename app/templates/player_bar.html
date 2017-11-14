@@ -29,8 +29,17 @@
             <h3 class="artist-name">{{ album.albumData.artist }}</h3>
         </div>
         <div class="control-group volume">
-            <span class="ion-volume-high icon"></span>
+            <span class="ion-volume-high icon"
+                  ng-show="playerBar.songPlayer.currentVolume"
+                  ng-click="playerBar.songPlayer.volumeMute()"></span>
+            <span class="ion-volume-mute icon"
+                  ng-show="!playerBar.songPlayer.currentVolume"
+                  ng-click="playerBar.songPlayer.volumeRestore()"></span>
             <seek-bar value="{{ playerBar.songPlayer.currentVolume }}" max="{{ playerBar.songPlayer.maxVolume }}" on-change="playerBar.songPlayer.setCurrentVolume(value)"></seek-bar>
+            <div class="mute-inst">
+              <p ng-show="playerBar.songPlayer.currentVolume">Click volume icon to mute</p>
+              <p ng-show="!playerBar.songPlayer.currentVolume">Click mute icon for music</p>
+              </div>
         </div>
     </div>
 </section>
