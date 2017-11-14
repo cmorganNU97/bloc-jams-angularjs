@@ -126,8 +126,8 @@
         SongPlayer.currrentPlaylist = {songs: []};
 
 /**
-* @desc
-* @type
+* @desc List of all of the playlists (can be created or saved/loaded)
+* @type {Array}
 */
 
         SongPlayer.playlistList = [];
@@ -251,8 +251,8 @@
         };
 
 /**
-/* @function
-/* @desc
+/* @function playlistRemove
+/* @desc Removes songs from the current playlist called from ng-click
 */
 
         SongPlayer.playlistRemove = function(index) {
@@ -260,8 +260,9 @@
         };
 
 /**
-/* @function
-/* @desc
+/* @function setAlbum
+/* @desc Sets the album to one from Fixtures.js when the Album view is displayed.
+/*       This is done when a song is played in the Album page (ng-click)
 */
 
         SongPlayer.setAlbum = function() {
@@ -269,8 +270,8 @@
         };
 
 /**
-/* @function
-/* @desc
+/* @function setPlaylist
+/* @desc Sets the current Playlist for the SongPlayer methods (ng-click)
 */
 
         SongPlayer.setPlaylist = function() {
@@ -278,8 +279,8 @@
         };
 
 /**
-* @function
-* @desc
+* @function clearPlaylist
+* @desc clears the playlist (ng-click from button)
 */
 
         SongPlayer.clearPlaylist = function() {
@@ -288,8 +289,9 @@
         };
 
 /**
-/* @function
-/* @desc
+/* @function playlistSave
+/* @desc Saves the playlist to the list of playlists - checks to see if there is
+/*       already a playlist by that name first
 */
 
         SongPlayer.playlistSave = function(playname) {
@@ -314,8 +316,8 @@
         };
 
 /**
-/* @function
-/* @desc
+/* @function playlistLoad
+/* @desc Loads a playlist from the list of playlists in order to play it
 */
 
         SongPlayer.playlistLoad = function(index) {
@@ -323,8 +325,8 @@
         };
 
 /**
-/* @function
-/* @desc
+/* @function saveLocalPlaylists
+/* @desc Saves list of playlists to localStoarge
 */
 
         SongPlayer.saveLocalPlaylists = function() {
@@ -332,15 +334,14 @@
         };
 
 /**
-/* @function
-/* @desc
+/* @function loadLocalPlaylists
+/* @desc Loads list of previously saved playlists from localStorage
 */
 
         SongPlayer.loadLocalPlaylists = function() {
             SongPlayer.playlistList = JSON.parse(localStorage.playlist1);
         };
 
-//*********************************************************
 
         return SongPlayer;
     }
